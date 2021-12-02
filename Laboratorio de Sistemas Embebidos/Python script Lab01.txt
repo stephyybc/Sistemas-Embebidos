@@ -1,0 +1,29 @@
+import time
+import grovepi
+from grove_rgb_lcd import *
+from grovepi import *
+import math
+
+button = 4  #Port for Button
+pinMode(button,"INPUT")
+sensor = 0
+setRGB(255,0,0)
+setText("Presiona el\n boton")
+
+while True:
+	try:
+		time.sleep(5)
+		button_status= digiyalRead(button)	#Read the Button start the program
+		if button_status:	#If the Button is in HIGH POSITION, run
+			temp = grovepi.temp(sensor,'1.1')
+			setRGB(0,255,0)
+			setText_norefresh("Temp = "+str(temp)+"		")
+		else:			#If Button is in the OFF position
+			setRGB(255,0,0)
+			setText_norefresh("Presiona el	\nboton	")
+	except KeyboardInterrupt:	#Stop 
+		break
+	except:
+		print("Error")
+		break
+
